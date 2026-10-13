@@ -41,5 +41,39 @@
     Apple : ouvrez le fichier .ics téléchargé pour l'ajouter à l'application Calendrier.
   </div>
 </div>
+  <script>
+function telechargerCalendrier(event) {
+  event.preventDefault();
+
+  const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//IDILLE//FR
+BEGIN:VEVENT
+UID:papa-ou-t-es-20261020@idille.com
+DTSTAMP:20261013T130000Z
+DTSTART:20261020T153000Z
+DTEND:20261020T183000Z
+SUMMARY:Avant-première Papa où t'es ?
+DESCRIPTION:Ouverture des files d'attente : 17h30\\nOuverture des portes : 18h\\nFermeture des portes : 19h30
+END:VEVENT
+END:VCALENDAR`;
+
+  const blob = new Blob([ics], {
+    type: "text/calendar;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const lien = document.createElement("a");
+
+  lien.href = url;
+  lien.download = "papa-ou-t-es.ics";
+
+  document.body.appendChild(lien);
+  lien.click();
+  lien.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+</script>
 </body>
 </html>
